@@ -175,7 +175,6 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agent.cs" />
-    <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\ArtShow.cs" />
     <Compile Include="Models\ArtWork.cs" />
     <Compile Include="Models\Customer.cs" />

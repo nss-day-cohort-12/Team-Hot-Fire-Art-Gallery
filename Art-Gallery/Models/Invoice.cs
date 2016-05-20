@@ -12,6 +12,6 @@ namespace Art_Gallery.Models
         public int AgentId { get; set; }
         public string PaymentMethod { get; set; }
         public string ShippingAddress { get; set; }
-        public int IndividualPieceId { get; set; }
+        public string PieceSold { get; set; }
     }
 }

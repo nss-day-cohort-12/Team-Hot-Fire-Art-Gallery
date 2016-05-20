@@ -16,5 +16,6 @@ namespace Art_Gallery.Models
         public bool Sold { get; set; }
         public string Location { get; set; }
         public int EditionNumber { get; set; }
+        public int InvoiceId { get; set; }
     }
 }
