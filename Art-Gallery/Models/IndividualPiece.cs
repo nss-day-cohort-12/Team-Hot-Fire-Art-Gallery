@@ -15,7 +15,7 @@ namespace Art_Gallery.Models
         public float Price { get; set; }
         public bool Sold { get; set; }
         public string Location { get; set; }
-        public int EditionNumber { get; set; }
+        public string EditionNumber { get; set; }
         public int InvoiceId { get; set; }
     }
 }
