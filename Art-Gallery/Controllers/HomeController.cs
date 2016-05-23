@@ -13,16 +13,16 @@ namespace Art_Gallery.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Customer()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Customer view";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Owner()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Owner view";
 
             return View();
         }

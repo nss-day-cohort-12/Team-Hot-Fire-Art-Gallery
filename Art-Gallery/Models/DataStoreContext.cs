@@ -11,7 +11,7 @@ namespace Art_Gallery.Models
         public DbSet<Customer> Customer { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        { 
+        {
 
         }
     }
