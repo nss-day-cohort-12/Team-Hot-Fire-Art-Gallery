@@ -8,7 +8,7 @@ namespace Art_Gallery.Models
     public class ArtWork
     {
         public int ArtWorkId { get; set; }
-        public string ArtistName { get; set; }
+        public string Artist{ get; set; }
         public string Title { get; set; }
         public string YearOriginalCreated { get; set; }
         public string Medium { get; set; }
