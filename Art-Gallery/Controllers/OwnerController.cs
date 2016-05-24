@@ -62,5 +62,50 @@ namespace Art_Gallery.Controllers
             return View(inventory);
         }
 
+        public ActionResult Agents()
+        {
+            DataStoreContext db = new DataStoreContext();
+            var agents = (from a in db.Agent
+                          join i in db.Invoice
+                          on a.AgentId equals i.AgentId
+                          select new AgentViewModel
+                          {
+                              Name = a.Name,
+                              Location = a.Location,
+                              Active = a.Active,
+                              PieceSold = i.PieceSold
+                          }).ToList();
+
+            
+
+            foreach (var agent in agents)
+            {
+                string[] pieces = agent.PieceSold.Split(',');
+                List<double> sales = new List<double>();
+                foreach (var piece in pieces)
+                {
+                    var individualSale = (
+                                 from ip in db.IndividualPiece
+                                 where ip.Sold == true
+                                 join aw in db.ArtWork
+                                 on ip.ArtWorkId equals aw.ArtWorkId
+                                 where aw.Title == piece
+                                 select new PriceViewModel
+                                 {
+                                     Price = ip.Price
+                                 }).ToList();
+                    if (individualSale[0].Price > 0) sales.Add(individualSale[0].Price);
+                }
+                agent.Sales = sales;
+            }
+
+            AgentSalesViewModel agentSales = new AgentSalesViewModel
+            {
+                Agents = agents
+            };
+
+            return View(agentSales);
+        }
+
     }
 }
