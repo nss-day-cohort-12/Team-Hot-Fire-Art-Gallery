@@ -204,6 +204,8 @@
     <Compile Include="ViewModels\InventoryViewModel.cs" />
     <Compile Include="ViewModels\PieceViewModel.cs" />
     <Compile Include="ViewModels\PriceViewModel.cs" />
+    <Compile Include="ViewModels\CustomerArtViewModel.cs" />
+    <Compile Include="ViewModels\CustomerPieceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Art-Gallery.mdf" />
@@ -275,6 +277,7 @@
     <EmbeddedResource Include="Migrations\201605241534168_initial.resx">
       <DependentUpon>201605241534168_initial.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Views\Customer\Selection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
