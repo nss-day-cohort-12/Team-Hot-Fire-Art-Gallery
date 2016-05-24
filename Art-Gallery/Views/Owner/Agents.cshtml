@@ -1,0 +1,15 @@
+﻿@model Art_Gallery.ViewModels.AgentSalesViewModel
+@{
+    ViewBag.Title = "Agents";
+}
+
+<h2>Agents</h2>
+
+@foreach (var agent in Model.Agents)
+{
+    <p>@agent.Name</p>
+    <p>@agent.Location</p>
+    <p>@agent.PieceSold</p>
+    <p>@agent.Sales</p>
+}
+

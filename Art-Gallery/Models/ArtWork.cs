@@ -16,5 +16,7 @@ namespace Art_Gallery.Models
         public int NumberMade { get; set; }
         public int NumberInInventory { get; set; }
         public int NumberSold { get; set; }
+
+        public List<IndividualPiece> Pieces { get; set; }
     }
 }
