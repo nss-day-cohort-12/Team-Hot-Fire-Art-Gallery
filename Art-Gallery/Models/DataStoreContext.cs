@@ -8,8 +8,12 @@ namespace Art_Gallery.Models
 {
     public class DataStoreContext : DbContext
     {
-        public DbSet<Customer> Customer { get; set; }
         public DbSet<ArtWork> ArtWork { get; set; }
+        public DbSet<ArtShow> ArtShow { get; set; }
+        public DbSet<IndividualPiece> IndividualPiece { get; set; }
+        public DbSet<Invoice> Invoice { get; set; }
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Agent> Agent { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
