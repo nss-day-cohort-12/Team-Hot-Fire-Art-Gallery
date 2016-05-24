@@ -1,4 +1,5 @@
 ﻿using Art_Gallery.Models;
+using Art_Gallery.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,26 @@ namespace Art_Gallery.Controllers
         // GET: Customer
         public ActionResult Index()
         {
-            DataStoreContext _myDataContext = new DataStoreContext();
+            DataStoreContext db = new DataStoreContext();
 
-            
+            //List < IndividualPiece > Pieces = db.IndividualPiece.ToList();
 
-            return View();
+            var ArtInventory = (from art in db.ArtWork
+                                join piece in db.IndividualPiece
+                                on art.ArtWorkId equals piece.ArtWorkId
+                                orderby art.Title
+                                select new CustomerArtViewModel
+                                {
+                                    Title = art.Title,
+                                    Image = piece.Image
+                                }).ToList();
+
+            CustomerPieceViewModel AllArt = new CustomerPieceViewModel
+            {
+                AllPieces = ArtInventory
+            };
+
+            return View(AllArt);
         }
     }
 }
