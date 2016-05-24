@@ -1,10 +1,22 @@
-﻿@{
+﻿@model Art_Gallery.ViewModels.CustomerPieceViewModel
+@{
     ViewBag.Title = "Welcome, Customer";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
 @*Initial view with all art pieces that have an inventory > 0*@
+    @foreach (var item in Model.AllPieces)
+    {
+    <div class="panel panel-default col-sm-4">
+        <div class="panel-heading">
+            @Html.ActionLink("Fucking ART", "Selection", new { ArtworkId = item.ArtworkId})
+            <img src="@item.Image" />
+        </div>
+        <div class="panel-body">
 
+        </div>
+    </div>
+    }
 
 
