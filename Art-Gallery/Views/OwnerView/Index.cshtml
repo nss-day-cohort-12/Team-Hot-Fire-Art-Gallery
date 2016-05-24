@@ -1,0 +1,12 @@
+﻿@model Art_Gallery.ViewModels.InventoryViewModel
+@{
+    ViewBag.Title = "Your Inventory";
+}
+
+@foreach (var piece in Model.Pieces)
+{
+    <p>piece.Title</p>
+    <p>piece.Cost</p>
+    <p>piece.AskingPrice</p>
+}
+

@@ -1,0 +1,28 @@
+﻿@model Art_Gallery.ViewModels.InventoryViewModel
+@{
+    ViewBag.Title = "Your Inventory";
+}
+
+<h2>Your Inventory</h2>
+
+<table>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Title)</th>
+        <th>@Html.DisplayNameFor(model => model.Cost)</th>
+        <th>@Html.DisplayNameFor(model => model.AskingPrice)</th>
+    </tr>
+    @foreach (var piece in Model.Pieces)
+    {
+        <tr>
+            <td>
+                "@Html.DisplayFor(modelItem => piece.Title)"
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => piece.Cost)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => piece.AskingPrice)
+            </td>
+        </tr>
+    }
+</table>
