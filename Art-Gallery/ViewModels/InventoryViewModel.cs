@@ -11,5 +11,8 @@ namespace Art_Gallery.ViewModels
         public float Cost { get; set; }
         public float AskingPrice { get; set; }
         public List<PieceViewModel> Pieces { get; set; }
+        public bool Sold { get; set; }
+        public float TotalSales { get; set; }
+        public float TotalProfit { get; set; }
     }
 }

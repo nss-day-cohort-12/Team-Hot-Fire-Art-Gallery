@@ -10,5 +10,6 @@ namespace Art_Gallery.ViewModels
         public string Title { get; set; }
         public float Cost { get; set; }
         public float AskingPrice { get; set; }
+        public bool Sold { get; set; }
     }
 }

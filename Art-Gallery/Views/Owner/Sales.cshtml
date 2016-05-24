@@ -1,0 +1,37 @@
+﻿@model Art_Gallery.ViewModels.InventoryViewModel
+@{
+    ViewBag.Title = "Sales";
+}
+
+<h2>Sales</h2>
+
+<table>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Title)</th>
+        <th>@Html.DisplayNameFor(model => model.Cost)</th>
+        <th>@Html.DisplayNameFor(model => model.AskingPrice)</th>
+        <th>Profit</th>
+    </tr>
+    @foreach (var piece in Model.Pieces)
+    {
+        <tr>
+            <td>
+                "@Html.DisplayFor(modelItem => piece.Title)"
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => piece.Cost)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => piece.AskingPrice)
+            </td>
+            <td>
+                $@(piece.AskingPrice - piece.Cost)
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    <p>Total Sales: $@Model.TotalSales</p>
+    <p>Total Profit: $@Model.TotalProfit</p>
+</div>

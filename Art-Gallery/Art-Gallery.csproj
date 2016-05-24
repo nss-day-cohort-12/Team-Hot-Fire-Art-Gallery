@@ -262,6 +262,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Owner\Index.cshtml" />
+    <Content Include="Views\Owner\Sales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605240212462_InitialCreate.resx">

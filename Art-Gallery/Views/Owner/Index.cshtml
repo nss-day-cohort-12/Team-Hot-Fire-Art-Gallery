@@ -10,6 +10,7 @@
         <th>@Html.DisplayNameFor(model => model.Title)</th>
         <th>@Html.DisplayNameFor(model => model.Cost)</th>
         <th>@Html.DisplayNameFor(model => model.AskingPrice)</th>
+        <th>@Html.DisplayNameFor(model => model.Sold)</th>
     </tr>
     @foreach (var piece in Model.Pieces)
     {
@@ -22,6 +23,9 @@
             </td>
             <td>
                 $@Html.DisplayFor(modelItem => piece.AskingPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => piece.Sold)
             </td>
         </tr>
     }
