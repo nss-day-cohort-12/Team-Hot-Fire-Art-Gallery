@@ -2,6 +2,19 @@
 @{
     ViewBag.Title = "Selection";
 }
-
-<h2>Selection</h2>
-
+@foreach (var item in Model.AllPieces)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>@Html.DisplayName(item.Title)</h2>
+            <img src="@item.Image" />
+        </div>
+        <div class="panel-body">
+            <p>Artist: @item.ArtistName</p>
+            <p>Price: $@item.Price</p>
+            <p>Dimensions: @item.Dimensions</p>
+            <p>Number Available: @item.QtyInInventory</p>
+            <p>Location: @item.Location</p>
+        </div>
+    </div>
+}

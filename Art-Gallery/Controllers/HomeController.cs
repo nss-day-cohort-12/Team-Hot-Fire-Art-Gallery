@@ -13,18 +13,5 @@ namespace Art_Gallery.Controllers
             return View();
         }
 
-        //public ActionResult Customer()
-        //{
-        //    ViewBag.Message = "Customer view";
-
-        //    return View();
-        //}
-
-        public ActionResult Owner()
-        {
-            ViewBag.Message = "Owner view";
-
-            return View();
-        }
     }
 }
