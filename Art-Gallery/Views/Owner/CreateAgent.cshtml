@@ -1,0 +1,28 @@
+﻿@model Art_Gallery.ViewModels.AgentViewModel
+@{
+    ViewBag.Title = "CreateAgent";
+}
+
+<h2>Create an Agent</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.Label("Name")
+    @Html.EditorFor(model => model.Name)
+
+    @Html.Label("Location")
+    @Html.EditorFor(model => model.Location)
+
+    @Html.Label("Address")
+    @Html.EditorFor(model => model.Address)
+
+    @Html.Label("Phone Number")
+    @Html.EditorFor(model => model.PhoneNumber)
+
+    @Html.Label("Active")
+    @Html.EditorFor(model => model.Active)
+
+    <input type="submit" value="Create" />
+}
+
+@Html.ActionLink("Back to homepage", "Agents")

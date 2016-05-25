@@ -1,0 +1,19 @@
+﻿@model Art_Gallery.ViewModels.AgentViewModel
+@{
+    ViewBag.Title = "Edit An Agent";
+}
+
+<h2>Edit</h2>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.Label("Name")
+    @Html.EditorFor(model => model.Name)
+    @Html.Label("Location")
+    @Html.EditorFor(model => model.Location)
+    @Html.Label("Active")
+    @Html.EditorFor(model => model.Active)
+    <input type="submit" value="Edit" />
+}
