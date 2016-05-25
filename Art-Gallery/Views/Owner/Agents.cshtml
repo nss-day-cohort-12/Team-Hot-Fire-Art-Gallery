@@ -5,6 +5,8 @@
 
 <h2>Agents</h2>
 
+@Html.ActionLink("Add an Agent", "CreateAgent")
+
 <table>
     <tr>
         <th>@Html.DisplayNameFor(model => model.Name)</th>
@@ -34,6 +36,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => agent.Active)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "/EditAgent", new { agentId = agent.AgentId })
             </td>
         </tr>
     }

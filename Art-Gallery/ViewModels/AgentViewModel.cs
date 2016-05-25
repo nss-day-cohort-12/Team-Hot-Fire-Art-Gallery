@@ -7,6 +7,7 @@ namespace Art_Gallery.ViewModels
 {
     public class AgentViewModel
     {
+        public int AgentId { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
         public bool Active { get; set; }

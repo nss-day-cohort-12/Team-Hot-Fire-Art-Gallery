@@ -71,6 +71,7 @@ namespace Art_Gallery.Controllers
                           orderby a.Name
                           select new AgentViewModel
                           {
+                              AgentId = a.AgentId,
                               Name = a.Name,
                               Location = a.Location,
                               Active = a.Active,
@@ -134,6 +135,56 @@ namespace Art_Gallery.Controllers
             };
 
             return View(agentSales);
+        }
+
+        // EDIT - GET
+        [HttpGet]
+        public ActionResult EditAgent(int AgentId)
+        {
+            using (DataStoreContext db = new DataStoreContext())
+            {
+                var agents = (from a in db.Agent
+                              join i in db.Invoice
+                              on a.AgentId equals i.AgentId
+                              orderby a.Name
+                              select new AgentViewModel
+                              {
+                                  AgentId = a.AgentId,
+                                  Name = a.Name,
+                                  Location = a.Location,
+                                  Active = a.Active,
+                                  PieceSold = i.PieceSold
+                              }).ToList();
+
+                AgentViewModel agentsForEdit = new AgentViewModel
+                {
+                    Name = agents.Select(a => a.Name).FirstOrDefault(),
+                    Location = agents.Select(a => a.Location).FirstOrDefault(),
+                    Active = agents.Select(a => a.Active).FirstOrDefault()
+                };
+
+                return View(agentsForEdit);
+            }
+        }
+
+       // EDIT - POST
+       [HttpPost]
+        public ActionResult EditAgent(AgentViewModel agents)
+        {
+            using (DataStoreContext db = new DataStoreContext())
+            {
+                var agent = db.Agent.Find(agents.AgentId);
+                if (ModelState.IsValid)
+                {
+                    agent.Name = agents.Name;
+                    agent.Location = agents.Location;
+                    agent.Active = agents.Active;
+                    db.SaveChanges();
+                    return RedirectToAction("Agents");
+                }
+
+                return View(agents);
+            }
         }
 
     }
