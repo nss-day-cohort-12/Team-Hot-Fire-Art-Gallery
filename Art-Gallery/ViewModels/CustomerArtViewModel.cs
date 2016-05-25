@@ -12,6 +12,7 @@ namespace Art_Gallery.ViewModels
         public int IndividualId { get; set; }
         public string Title { get; set; }
         public string Image { get; set; }
+        public bool HasSold { get; set; }
         public List<ArtWork> Works { get; set; }
         public List<IndividualPiece> Pieces { get; set; }
 

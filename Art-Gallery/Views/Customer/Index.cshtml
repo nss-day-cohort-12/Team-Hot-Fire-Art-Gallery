@@ -10,11 +10,17 @@
     {
     <div class="panel panel-default col-sm-4">
         <div class="panel-heading">
-            @Html.ActionLink("Fucking ART", "Selection", new { ArtworkId = item.ArtworkId})
+            @Html.ActionLink("Fucking ART", "Selection", new { ArtworkId = item.ArtworkId })
             <img src="@item.Image" />
         </div>
         <div class="panel-body">
-
+            @if(item.HasSold)
+            {
+                @:<p>Available!</p>
+            } else
+            {
+                @:<p>SOLD!</p>
+            }
         </div>
     </div>
     }

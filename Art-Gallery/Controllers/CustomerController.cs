@@ -23,8 +23,11 @@ namespace Art_Gallery.Controllers
                                 orderby art.Title
                                 select new CustomerArtViewModel
                                 {
+                                    ArtworkId = art.ArtWorkId,
+                                    IndividualId = piece.IndividualPieceId,
                                     Title = art.Title,
-                                    Image = piece.Image
+                                    Image = piece.Image,
+                                    HasSold = piece.Sold
                                 }).ToList();
 
             CustomerPieceViewModel AllArt = new CustomerPieceViewModel
@@ -33,6 +36,11 @@ namespace Art_Gallery.Controllers
             };
 
             return View(AllArt);
+        }
+
+        public ActionResult Selection()
+        {
+            return View();
         }
     }
 }
