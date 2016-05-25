@@ -1,0 +1,21 @@
+﻿@model Art_Gallery.ViewModels.PieceViewModel
+@{
+    ViewBag.Title = "Edit A Piece";
+}
+
+<h2>Edit A Piece</h2>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.Label("Title")
+    @Html.DisplayFor(model => model.Title)
+    @Html.Label("Cost")
+    @Html.EditorFor(model => model.Cost)
+    @Html.Label("Asking Price")
+    @Html.EditorFor(model => model.AskingPrice)
+    @Html.Label("Sold")
+    @Html.EditorFor(model => model.Sold)
+    <input type="submit" value="Edit" />
+}

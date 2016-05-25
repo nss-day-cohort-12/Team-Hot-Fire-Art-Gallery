@@ -11,6 +11,11 @@ namespace Art_Gallery.Controllers
 {
     public class OwnerController : Controller
     {
+
+        // **********************
+        // ARTWORK INFORMATION -- CRUD
+        // **********************
+
         public ActionResult Index()
         {
             DataStoreContext db = new DataStoreContext();
@@ -19,6 +24,7 @@ namespace Art_Gallery.Controllers
                             on aw.ArtWorkId equals ip.ArtWorkId
                             select new PieceViewModel
                             {
+                                IndividualPieceId = ip.IndividualPieceId,
                                 Title = aw.Title,
                                 Cost = (float)(double)ip.Cost,
                                 AskingPrice = (float)(double)ip.Price,
@@ -32,6 +38,64 @@ namespace Art_Gallery.Controllers
 
             return View(inventory);
         }
+
+        // seems like you only need to change invidivual piece data
+
+        // EDIT - GET
+        [HttpGet]
+        public ActionResult EditPiece(int IndividualPieceId)
+        {
+            using (DataStoreContext db = new DataStoreContext())
+            {
+                var pieces = (from aw in db.ArtWork
+                              join ip in db.IndividualPiece
+                              on aw.ArtWorkId equals ip.ArtWorkId
+                              where ip.IndividualPieceId == IndividualPieceId
+                              select new PieceViewModel
+                              {
+                                  IndividualPieceId = ip.IndividualPieceId,
+                                  Title = aw.Title,
+                                  Cost = (float)(double)ip.Cost,
+                                  AskingPrice = (float)(double)ip.Price,
+                                  Sold = ip.Sold
+                              }).ToList();
+
+                PieceViewModel pieceForEdit = new PieceViewModel
+                {
+                    Title = pieces.Select(p => p.Title).FirstOrDefault(),
+                    Cost = pieces.Select(p => p.Cost).FirstOrDefault(),
+                    AskingPrice = pieces.Select(p => p.AskingPrice).FirstOrDefault(),
+                    Sold = pieces.Select(p => p.Sold).FirstOrDefault()
+                };
+
+                return View(pieces);
+            }
+        }
+
+        //// EDIT - POST
+        //[HttpPost]
+        //public ActionResult EditAgent(AgentViewModel agents)
+        //{
+        //    using (DataStoreContext db = new DataStoreContext())
+        //    {
+        //        var agent = db.Agent.Find(agents.AgentId);
+        //        if (ModelState.IsValid)
+        //        {
+        //            agent.Name = agents.Name;
+        //            agent.Location = agents.Location;
+        //            agent.Active = agents.Active;
+        //            db.SaveChanges();
+        //            return RedirectToAction("Agents");
+        //        }
+
+        //        return View(agents);
+        //    }
+        //}
+
+
+        // **********************
+        // VIEW SALES INFORMATION
+        // **********************
 
         public ActionResult Sales()
         {
@@ -61,6 +125,11 @@ namespace Art_Gallery.Controllers
             }
             return View(inventory);
         }
+
+
+        // **********************
+        // AGENT INFORMATION -- view, create, edit
+        // **********************
 
         public ActionResult Agents()
         {
@@ -167,6 +236,7 @@ namespace Art_Gallery.Controllers
                               join i in db.Invoice
                               on a.AgentId equals i.AgentId
                               orderby a.Name
+                              where a.AgentId == AgentId
                               select new AgentViewModel
                               {
                                   AgentId = a.AgentId,
