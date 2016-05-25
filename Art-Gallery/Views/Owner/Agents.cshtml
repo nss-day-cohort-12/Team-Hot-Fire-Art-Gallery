@@ -11,6 +11,7 @@
         <th>@Html.DisplayNameFor(model => model.Location)</th>
         <th>@Html.DisplayNameFor(model => model.PiecesSold)</th>
         <th>@Html.DisplayNameFor(model => model.TotalSales)</th>
+        <th>@Html.DisplayNameFor(model => model.TotalProfit)</th>
         <th>@Html.DisplayNameFor(model => model.Active)?</th>
     </tr>
     @foreach (var agent in Model.Agents)
@@ -27,6 +28,9 @@
             </td>
             <td>
                 $@Html.DisplayFor(modelItem => agent.Sales)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => agent.Profit)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => agent.Active)

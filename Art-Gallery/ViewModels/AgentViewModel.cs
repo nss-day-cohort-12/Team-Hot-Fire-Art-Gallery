@@ -12,5 +12,6 @@ namespace Art_Gallery.ViewModels
         public bool Active { get; set; }
         public string PieceSold { get; set; }
         public double Sales { get; set; }
+        public double Profit { get; set; }
     }
 }

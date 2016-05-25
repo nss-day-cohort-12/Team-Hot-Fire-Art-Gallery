@@ -11,6 +11,7 @@ namespace Art_Gallery.ViewModels
         public string Location { get; set; }
         public string PiecesSold { get; set; }
         public string TotalSales { get; set; }
+        public string TotalProfit { get; set; }
         public bool Active { get; set; }
         public List<AgentViewModel> Agents { get; set; }
     }

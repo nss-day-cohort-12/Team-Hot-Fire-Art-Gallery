@@ -68,6 +68,7 @@ namespace Art_Gallery.Controllers
             var agents = (from a in db.Agent
                           join i in db.Invoice
                           on a.AgentId equals i.AgentId
+                          orderby a.Name
                           select new AgentViewModel
                           {
                               Name = a.Name,
@@ -76,12 +77,13 @@ namespace Art_Gallery.Controllers
                               PieceSold = i.PieceSold
                           }).ToList();
 
-            
+
 
             foreach (var agent in agents)
             {
                 string[] pieces = agent.PieceSold.Split(',');
                 double totalSales = 0;
+                double totalProfit = 0;
                 foreach (var piece in pieces)
                 {
                     var individualSale = (
@@ -92,15 +94,39 @@ namespace Art_Gallery.Controllers
                                  where aw.Title == piece
                                  select new PriceViewModel
                                  {
-                                     Price = ip.Price
+                                     Price = ip.Price,
+                                     Cost = ip.Cost
                                  }).ToList();
                     if (individualSale.Count > 0)
                     {
                         totalSales += individualSale[0].Price;
+                        double profit = individualSale[0].Price - individualSale[0].Cost;
+                        totalProfit += profit;
                     }
                 }
                 agent.Sales = totalSales;
+                agent.Profit = totalProfit;
             }
+
+            // brute force solution for displaying unique agents & profit/sales totals
+            for (int i = 0; i < agents.Count; i++)
+            {
+                if ((i + 1 != agents.Count) && agents[i].Name == agents[i + 1].Name)
+                {
+                    if (agents[i + 2].Name == agents[i + 1].Name)
+                    {
+                        agents[i + 1].PieceSold += "," + agents[i + 2].PieceSold;
+                        agents[i + 1].Sales += agents[i + 2].Sales;
+                        agents[i + 1].Profit += agents[i + 2].Profit;
+                        agents.Remove(agents[i + 2]);
+                    } 
+                    agents[i + 1].PieceSold += ", " + agents[i].PieceSold;
+                    agents[i + 1].Sales += agents[i].Sales;
+                    agents[i + 1].Profit += agents[i].Profit;
+                    agents.Remove(agents[i]);
+                }
+            }
+
 
             AgentSalesViewModel agentSales = new AgentSalesViewModel
             {
