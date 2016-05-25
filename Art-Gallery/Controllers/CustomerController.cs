@@ -31,7 +31,7 @@ namespace Art_Gallery.Controllers
                                     Medium = art.Medium,
                                     QtyInInventory = art.NumberInInventory,
                                     HasSold = piece.Sold
-                                }).ToList();
+                                });
 
             //Query only artists for artist dropdown select 
             var ArtistQry = from art in db.ArtWork
@@ -51,10 +51,21 @@ namespace Art_Gallery.Controllers
             MediumsList.AddRange(MediumsQry.Distinct());
             ViewData["mediumString"] = new SelectList(MediumsList);
 
+            //Allows dropbox selection to filter results
+            if (!string.IsNullOrEmpty(artistString))
+            {
+                ArtInventory = ArtInventory.Where(a => a.ArtistName.Contains(artistString));
+            }
+
+            if (!string.IsNullOrEmpty(mediumString))
+            {
+                ArtInventory = ArtInventory.Where(m => m.Medium == mediumString);
+            }
+
             //Primary ViewModel of all art from primary query
             CustomerPieceViewModel AllArt = new CustomerPieceViewModel
             {
-                AllPieces = ArtInventory
+                AllPieces = ArtInventory.ToList()
             };
 
             return View(AllArt);
@@ -76,16 +87,17 @@ namespace Art_Gallery.Controllers
                                     ArtistName = art.Artist,
                                     Title = art.Title,
                                     Image = piece.Image,
+                                    Medium = art.Medium,
                                     Dimensions = art.Dimensions,
                                     QtyInInventory = art.NumberInInventory,
                                     Price = (float)(double)piece.Price,
                                     HasSold = piece.Sold,
                                     Location = piece.Location
-                                }).ToList();
+                                });
 
             CustomerPieceViewModel SelectedPiece = new CustomerPieceViewModel
             {
-                AllPieces = SelectionInfo
+                AllPieces = SelectionInfo.ToList()
             };
 
             return View(SelectedPiece);

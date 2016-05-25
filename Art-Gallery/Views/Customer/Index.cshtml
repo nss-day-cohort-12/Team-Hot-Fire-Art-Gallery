@@ -8,10 +8,9 @@
 <form asp-controller="Customer" asp-action="Index">
     @Html.DropDownList("artistString", "All")
     @Html.DropDownList("mediumString", "All")
-    @*cost dropdown box*@
+    @*cost dropdown box goes here*@
     <input type="submit" value="Filter"/>
 </form>
-
 
 @*Initial view with all art pieces that have an inventory > 0*@
 @foreach (var item in Model.AllPieces)
