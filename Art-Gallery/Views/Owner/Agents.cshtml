@@ -5,11 +5,32 @@
 
 <h2>Agents</h2>
 
-@foreach (var agent in Model.Agents)
-{
-    <p>@agent.Name</p>
-    <p>@agent.Location</p>
-    <p>@agent.PieceSold</p>
-    <p>@agent.Sales</p>
-}
-
+<table>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Name)</th>
+        <th>@Html.DisplayNameFor(model => model.Location)</th>
+        <th>@Html.DisplayNameFor(model => model.PiecesSold)</th>
+        <th>@Html.DisplayNameFor(model => model.TotalSales)</th>
+        <th>@Html.DisplayNameFor(model => model.Active)?</th>
+    </tr>
+    @foreach (var agent in Model.Agents)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => agent.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => agent.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => agent.PieceSold)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => agent.Sales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => agent.Active)
+            </td>
+        </tr>
+    }
+</table>

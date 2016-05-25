@@ -81,7 +81,7 @@ namespace Art_Gallery.Controllers
             foreach (var agent in agents)
             {
                 string[] pieces = agent.PieceSold.Split(',');
-                List<double> sales = new List<double>();
+                double totalSales = 0;
                 foreach (var piece in pieces)
                 {
                     var individualSale = (
@@ -94,9 +94,12 @@ namespace Art_Gallery.Controllers
                                  {
                                      Price = ip.Price
                                  }).ToList();
-                    if (individualSale[0].Price > 0) sales.Add(individualSale[0].Price);
+                    if (individualSale.Count > 0)
+                    {
+                        totalSales += individualSale[0].Price;
+                    }
                 }
-                agent.Sales = sales;
+                agent.Sales = totalSales;
             }
 
             AgentSalesViewModel agentSales = new AgentSalesViewModel
