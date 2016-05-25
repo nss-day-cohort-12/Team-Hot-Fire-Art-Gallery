@@ -129,6 +129,26 @@ namespace Art_Gallery.Controllers
             }
 
 
+            // need to add new agents to this list
+            // new agent = not represented on above agents list, 
+            // will not have an invoice
+
+            var potentialNewAgents = db.Agent.ToList();
+            foreach (var potentialNewAgent in potentialNewAgents)
+            {
+                if (potentialNewAgent.AgentId > 7)
+                {
+                    AgentViewModel newAgent = new AgentViewModel
+                    {
+                        Name = potentialNewAgent.Name,
+                        Location = potentialNewAgent.Location,
+                        PieceSold = "none",
+                        Active = potentialNewAgent.Active
+                    };
+                    agents.Add(newAgent);
+                }
+            }
+
             AgentSalesViewModel agentSales = new AgentSalesViewModel
             {
                 Agents = agents
