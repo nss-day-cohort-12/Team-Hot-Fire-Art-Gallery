@@ -187,5 +187,37 @@ namespace Art_Gallery.Controllers
             }
         }
 
+        // CREATE - GET
+        [HttpGet]
+        public ActionResult CreateAgent()
+        {
+            return View();
+        }
+
+        // CREATE - POST
+        [HttpPost]
+        public ActionResult CreateAgent(AgentViewModel agents)
+        {
+            using (DataStoreContext db = new DataStoreContext())
+            {
+                if (ModelState.IsValid)
+                {
+                    Agent agent = new Agent
+                    {
+                        Name = agents.Name,
+                        Location = agents.Location,
+                        Address = agents.Address,
+                        PhoneNumber = agents.PhoneNumber,
+                        Active = agents.Active
+                    };
+                    db.Agent.Add(agent);
+                    db.SaveChanges();
+                    return RedirectToAction("Agents");
+                }
+
+                return View(agents);
+            }
+        }
+
     }
 }
