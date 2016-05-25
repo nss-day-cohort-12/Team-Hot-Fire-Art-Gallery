@@ -5,24 +5,28 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
+<form asp-controller="Customer" asp-action="Index">
+    @Html.DropDownList("artistString", "All")
+    @Html.DropDownList("mediumString", "All")
+    @*cost dropdown box*@
+    <input type="submit" value="Filter"/>
+</form>
+
+
 @*Initial view with all art pieces that have an inventory > 0*@
-    @foreach (var item in Model.AllPieces)
-    {
+@foreach (var item in Model.AllPieces)
+{
+
     <div class="panel panel-default col-sm-4">
         <div class="panel-heading">
-            @Html.ActionLink("Fucking ART", "Selection", new { ArtworkId = item.ArtworkId })
+            @*Links to individual selection page for each piece of art*@
+            @Html.ActionLink("ART", "Selection", new { ArtworkId = item.ArtworkId })
             <img src="@item.Image" />
         </div>
         <div class="panel-body">
-            @if(item.HasSold)
-            {
-                @:<p>Available!</p>
-            } else
-            {
-                @:<p>SOLD!</p>
-            }
+            <p>This piece is available</p>
         </div>
     </div>
-    }
+}
 
 
