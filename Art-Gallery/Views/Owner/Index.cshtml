@@ -27,6 +27,9 @@
             <td>
                 @Html.DisplayFor(modelItem => piece.Sold)
             </td>
+            <td>
+                @Html.ActionLink("Edit", "EditPiece", new { IndividualPieceId = piece.IndividualPieceId })
+            </td>
         </tr>
     }
 </table>

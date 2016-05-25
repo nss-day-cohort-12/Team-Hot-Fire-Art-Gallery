@@ -60,6 +60,7 @@ namespace Art_Gallery.Controllers
                                   Sold = ip.Sold
                               }).ToList();
 
+
                 PieceViewModel pieceForEdit = new PieceViewModel
                 {
                     Title = pieces.Select(p => p.Title).FirstOrDefault(),
@@ -68,7 +69,8 @@ namespace Art_Gallery.Controllers
                     Sold = pieces.Select(p => p.Sold).FirstOrDefault()
                 };
 
-                return View(pieces);
+
+                return View(pieceForEdit);
             }
         }
 

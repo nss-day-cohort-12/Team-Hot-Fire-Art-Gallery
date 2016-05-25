@@ -9,13 +9,23 @@
 
 @using (Html.BeginForm())
 {
-    @Html.Label("Title")
-    @Html.DisplayFor(model => model.Title)
-    @Html.Label("Cost")
-    @Html.EditorFor(model => model.Cost)
-    @Html.Label("Asking Price")
-    @Html.EditorFor(model => model.AskingPrice)
-    @Html.Label("Sold")
-    @Html.EditorFor(model => model.Sold)
-    <input type="submit" value="Edit" />
+    <p>
+        @Html.Label("Title")
+        @Html.DisplayFor(model => model.Title)
+    </p>
+    <p>
+        @Html.Label("Cost")
+        @Html.EditorFor(model => model.Cost)
+    </p>
+    <p>
+        @Html.Label("Asking Price")
+        @Html.EditorFor(model => model.AskingPrice)
+    </p>
+    <p>
+        @Html.Label("Sold")
+        @Html.EditorFor(model => model.Sold)
+    </p>
+    <p>
+        <input type="submit" value="Edit" />
+    </p>
 }
