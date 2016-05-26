@@ -11,8 +11,9 @@ namespace Art_Gallery.Controllers
     public class CustomerController : Controller
     {
         // GET: Customer
-        public ActionResult Index(string artistString, string mediumString)
+        public ActionResult Index(string artistString, string mediumString, string priceString)
         {
+
             DataStoreContext db = new DataStoreContext();
 
             //Main query that pulls back all needed data
@@ -30,6 +31,7 @@ namespace Art_Gallery.Controllers
                                     Image = piece.Image,
                                     Medium = art.Medium,
                                     QtyInInventory = art.NumberInInventory,
+                                    Price = (float)(double)piece.Price,
                                     HasSold = piece.Sold
                                 });
 
@@ -51,6 +53,14 @@ namespace Art_Gallery.Controllers
             MediumsList.AddRange(MediumsQry.Distinct());
             ViewData["mediumString"] = new SelectList(MediumsList);
 
+            var PriceList = new List<string>();
+            PriceList.Add("<250");
+            PriceList.Add("251+");
+            PriceList.Add("500+");
+            PriceList.Add("1000+");
+            ViewData["priceString"] = new SelectList(PriceList);
+
+
             //Allows dropbox selection to filter results
             if (!string.IsNullOrEmpty(artistString))
             {
@@ -61,6 +71,12 @@ namespace Art_Gallery.Controllers
             {
                 ArtInventory = ArtInventory.Where(m => m.Medium == mediumString);
             }
+
+            //*** Use once price conversion and conditional is handled **//
+            //if (!string.IsNullOrEmpty(priceString))
+            //{
+            //    ArtInventory = ArtInventory.Where(p => p.Price == Convert.ToDouble(priceString));
+            //}
 
             //Primary ViewModel of all art from primary query
             CustomerPieceViewModel AllArt = new CustomerPieceViewModel
@@ -101,6 +117,29 @@ namespace Art_Gallery.Controllers
             };
 
             return View(SelectedPiece);
+        }
+
+        public ActionResult Shows()
+        {
+            DataStoreContext db = new DataStoreContext();
+
+            var ShowInfo = (from show in db.ArtShow
+                            orderby show.Artists
+                            select new ArtShow
+                            {
+                                ArtShowId = show.ArtShowId,
+                                Artists = show.Artists,
+                                Location = show.Location,
+                                Agents = show.Agents,
+                                Overhead = show.Overhead
+                            });
+
+            ArtshowViewModel SelectedShow = new ArtshowViewModel()
+            {
+                ShowList = ShowInfo.ToList()
+            };
+
+            return View();
         }
     }
 }
