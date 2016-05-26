@@ -26,8 +26,8 @@ namespace Art_Gallery.Controllers
                             {
                                 IndividualPieceId = ip.IndividualPieceId,
                                 Title = aw.Title,
-                                Cost = (float)(double)ip.Cost,
-                                AskingPrice = (float)(double)ip.Price,
+                                Cost = ip.Cost,
+                                AskingPrice = ip.Price,
                                 Sold = ip.Sold
                             }).ToList();
 
@@ -39,7 +39,48 @@ namespace Art_Gallery.Controllers
             return View(inventory);
         }
 
-        // seems like you only need to change invidivual piece data
+        // CREATE - GET
+        [HttpGet]
+        public ActionResult CreatePiece()
+        {
+            return View();
+        }
+
+        // CREATE - POST
+        [HttpPost]
+        public ActionResult CreatePiece(PieceViewModel pieces)
+        {
+            using (DataStoreContext db = new DataStoreContext())
+            {
+                if (ModelState.IsValid)
+                {
+                    var matchingArtWork = db.ArtWork.First(a => a.Title == pieces.Title).ArtWorkId;
+
+                    if (matchingArtWork > 0)
+                    {
+                        IndividualPiece piece = new IndividualPiece
+                        {
+                            ArtWorkId = matchingArtWork,
+                            Image = pieces.Image,
+                            Price = pieces.AskingPrice,
+                            Cost = pieces.Cost,
+                            Sold = pieces.Sold,
+                            EditionNumber = pieces.EditionNumber,
+                            Location = pieces.Location,
+                            InvoiceId = null
+                        };
+                        db.IndividualPiece.Add(piece);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else {
+                        ViewBag.Title = "Our system currently only supports adding new prints of existing art.";
+                    }
+                }
+
+                return View(pieces);
+            }
+        }
 
         // EDIT - GET
         [HttpGet]
@@ -55,8 +96,8 @@ namespace Art_Gallery.Controllers
                               {
                                   IndividualPieceId = ip.IndividualPieceId,
                                   Title = aw.Title,
-                                  Cost = (float)(double)ip.Cost,
-                                  AskingPrice = (float)(double)ip.Price,
+                                  Cost = ip.Cost,
+                                  AskingPrice = ip.Price,
                                   Sold = ip.Sold
                               }).ToList();
 
@@ -74,25 +115,47 @@ namespace Art_Gallery.Controllers
             }
         }
 
-        //// EDIT - POST
-        //[HttpPost]
-        //public ActionResult EditAgent(AgentViewModel agents)
-        //{
-        //    using (DataStoreContext db = new DataStoreContext())
-        //    {
-        //        var agent = db.Agent.Find(agents.AgentId);
-        //        if (ModelState.IsValid)
-        //        {
-        //            agent.Name = agents.Name;
-        //            agent.Location = agents.Location;
-        //            agent.Active = agents.Active;
-        //            db.SaveChanges();
-        //            return RedirectToAction("Agents");
-        //        }
+        // EDIT - POST
+        [HttpPost]
+        public ActionResult EditPiece(PieceViewModel pieces)
+        {
+            using (DataStoreContext db = new DataStoreContext())
+            {
+                var piece = db.IndividualPiece.Find(pieces.IndividualPieceId);
 
-        //        return View(agents);
-        //    }
-        //}
+                if (ModelState.IsValid)
+                {
+                    piece.Cost = pieces.Cost;
+                    piece.Price = pieces.AskingPrice;
+                    piece.Sold = pieces.Sold;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return View(pieces);
+            }
+        }
+
+        // DELETE
+        public ActionResult DeletePiece(int IndividualPieceId)
+        {
+            if (IndividualPieceId != 0)
+            {
+                using (DataStoreContext db = new DataStoreContext())
+                {
+                    IndividualPiece piece = db.IndividualPiece.Find(IndividualPieceId);
+
+                    db.IndividualPiece.Remove(piece);
+                    db.SaveChanges();
+
+                }
+            }
+            else
+            {
+                ViewBag.Title = "There was a problem";
+            }
+            return RedirectToAction("Index");
+        }
 
 
         // **********************
@@ -109,8 +172,8 @@ namespace Art_Gallery.Controllers
                               select new PieceViewModel
                               {
                                   Title = aw.Title,
-                                  Cost = (float)(double)ip.Cost,
-                                  AskingPrice = (float)(double)ip.Price,
+                                  Cost = ip.Cost,
+                                  AskingPrice = ip.Price,
                                   Sold = ip.Sold
                               }).ToList();
             InventoryViewModel inventory = new InventoryViewModel
@@ -176,8 +239,8 @@ namespace Art_Gallery.Controllers
                         totalProfit += profit;
                     }
                 }
-                agent.Sales = totalSales;
-                agent.Profit = totalProfit;
+                agent.Sales = Math.Round(totalSales, 2);
+                agent.Profit = Math.Round(totalProfit, 2);
             }
 
             // brute force solution for displaying unique agents & profit/sales totals
