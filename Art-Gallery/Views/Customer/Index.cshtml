@@ -6,9 +6,9 @@
 <h3>@ViewBag.Message</h3>
 
 <form asp-controller="Customer" asp-action="Index">
-    @Html.DropDownList("artistString", "No Filter")
-    @Html.DropDownList("mediumString", "No Filter")
-    @Html.DropDownList("priceString", "No Filter")
+    @Html.DropDownList("artistString", "Select Artist")
+    @Html.DropDownList("mediumString", "Select Medium")
+    @Html.DropDownList("priceString", "Select Price Range")
     @*cost dropdown box goes here*@
     <input type="submit" value="Filter"/>
 </form>

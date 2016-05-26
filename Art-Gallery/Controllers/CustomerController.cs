@@ -31,7 +31,7 @@ namespace Art_Gallery.Controllers
                                     Image = piece.Image,
                                     Medium = art.Medium,
                                     QtyInInventory = art.NumberInInventory,
-                                    Price = (float)(double)piece.Price,
+                                    Price = piece.Price,
                                     HasSold = piece.Sold
                                 });
 
@@ -54,10 +54,10 @@ namespace Art_Gallery.Controllers
             ViewData["mediumString"] = new SelectList(MediumsList);
 
             var PriceList = new List<string>();
-            PriceList.Add("100");
-            PriceList.Add("250");
-            PriceList.Add("500");
-            PriceList.Add("1000");
+            PriceList.Add("Less than $250");
+            PriceList.Add("Less than $500");
+            PriceList.Add("Less than $1000");
+            PriceList.Add("Greater than $1000");
             ViewData["priceString"] = new SelectList(PriceList);
 
 
@@ -72,11 +72,27 @@ namespace Art_Gallery.Controllers
                 ArtInventory = ArtInventory.Where(m => m.Medium == mediumString);
             }
 
-            //***Use once price conversion and conditional is handled**//
             if (!string.IsNullOrEmpty(priceString))
             {
-                ArtInventory = ArtInventory.Where(p => p.Price == Convert.ToDouble(priceString));
-            }
+                switch (priceString)
+                {
+                    case "Less than $250":
+                        ArtInventory = ArtInventory.Where(p => p.Price <= 250);
+                        break;
+                    case "Less than $500":
+                        ArtInventory = ArtInventory.Where(p => p.Price <= 500);
+                        break;
+                    case "Less than $1000":
+                        ArtInventory = ArtInventory.Where(p => p.Price <= 1000);
+                        break;
+                    case "Greater than $1000":
+                        ArtInventory = ArtInventory.Where(p => p.Price > 1000);
+                        break;
+                    default:
+                        ArtInventory = ArtInventory.Where(p => p.Price > 0);
+                        break;
+                }
+            };
 
             //Primary ViewModel of all art from primary query
             CustomerPieceViewModel AllArt = new CustomerPieceViewModel
@@ -106,7 +122,7 @@ namespace Art_Gallery.Controllers
                                     Medium = art.Medium,
                                     Dimensions = art.Dimensions,
                                     QtyInInventory = art.NumberInInventory,
-                                    Price = (float)(double)piece.Price,
+                                    Price = piece.Price,
                                     HasSold = piece.Sold,
                                     Location = piece.Location
                                 });

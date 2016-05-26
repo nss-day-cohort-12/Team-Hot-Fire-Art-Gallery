@@ -12,7 +12,7 @@ namespace Art_Gallery.ViewModels
         public string ArtistsRepresented { get; set; }
         public string ShowLocation { get; set; }
         public string Agents { get; set; }
-        public float Overhead { get; set; }
+        public double Overhead { get; set; }
         public List<ArtShow> ShowList { get; set; }
     }
 }
