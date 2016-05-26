@@ -201,6 +201,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AgentSalesViewModel.cs" />
     <Compile Include="ViewModels\AgentViewModel.cs" />
+    <Compile Include="ViewModels\ArtshowViewModel.cs" />
     <Compile Include="ViewModels\InventoryViewModel.cs" />
     <Compile Include="ViewModels\PieceViewModel.cs" />
     <Compile Include="ViewModels\PriceViewModel.cs" />
@@ -268,6 +269,7 @@
     <Content Include="Views\Owner\Index.cshtml" />
     <Content Include="Views\Owner\Sales.cshtml" />
     <Content Include="Views\Owner\Agents.cshtml" />
+    <Content Include="Views\Customer\Shows.cshtml" />
     <Content Include="Views\Owner\EditAgent.cshtml" />
     <Content Include="Views\Owner\CreateAgent.cshtml" />
     <Content Include="Views\Owner\EditPiece.cshtml" />

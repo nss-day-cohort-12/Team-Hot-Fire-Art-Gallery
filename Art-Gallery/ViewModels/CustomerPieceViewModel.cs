@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,7 @@ namespace Art_Gallery.ViewModels
         public string Medium { get; set; }
         public string Dimensions { get; set; }
         public int QtyInInventory { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
         public bool HasSold { get; set; }
         public string Location { get; set; }
         public List<CustomerArtViewModel> AllPieces { get; set; }

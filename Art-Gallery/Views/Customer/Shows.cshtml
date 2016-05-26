@@ -1,0 +1,15 @@
+﻿@model Art_Gallery.ViewModels.ArtshowViewModel
+@{
+    ViewBag.Title = "Shows";
+}
+
+<h1>Upcoming Shows</h1>
+
+@foreach(var item in Model.ShowList)
+{
+    <div class="col-sm-6">
+        <h2>@item.ShowLocation</h2>
+        <p>Artists Represented: @item.ArtistsRepresented</p>
+        <p>Available Agents: @item.Agents</p>
+    </div>
+}

@@ -11,8 +11,9 @@ namespace Art_Gallery.Controllers
     public class CustomerController : Controller
     {
         // GET: Customer
-        public ActionResult Index(string artistString, string mediumString)
+        public ActionResult Index(string artistString, string mediumString, string priceString)
         {
+
             DataStoreContext db = new DataStoreContext();
 
             //Main query that pulls back all needed data
@@ -30,8 +31,9 @@ namespace Art_Gallery.Controllers
                                     Image = piece.Image,
                                     Medium = art.Medium,
                                     QtyInInventory = art.NumberInInventory,
+                                    Price = piece.Price,
                                     HasSold = piece.Sold
-                                }).ToList();
+                                });
 
             //Query only artists for artist dropdown select 
             var ArtistQry = from art in db.ArtWork
@@ -51,10 +53,51 @@ namespace Art_Gallery.Controllers
             MediumsList.AddRange(MediumsQry.Distinct());
             ViewData["mediumString"] = new SelectList(MediumsList);
 
+            var PriceList = new List<string>();
+            PriceList.Add("Less than $250");
+            PriceList.Add("Less than $500");
+            PriceList.Add("Less than $1000");
+            PriceList.Add("Greater than $1000");
+            ViewData["priceString"] = new SelectList(PriceList);
+
+
+            //Allows dropbox selection to filter results
+            if (!string.IsNullOrEmpty(artistString))
+            {
+                ArtInventory = ArtInventory.Where(a => a.ArtistName.Contains(artistString));
+            }
+
+            if (!string.IsNullOrEmpty(mediumString))
+            {
+                ArtInventory = ArtInventory.Where(m => m.Medium == mediumString);
+            }
+
+            if (!string.IsNullOrEmpty(priceString))
+            {
+                switch (priceString)
+                {
+                    case "Less than $250":
+                        ArtInventory = ArtInventory.Where(p => p.Price <= 250);
+                        break;
+                    case "Less than $500":
+                        ArtInventory = ArtInventory.Where(p => p.Price <= 500);
+                        break;
+                    case "Less than $1000":
+                        ArtInventory = ArtInventory.Where(p => p.Price <= 1000);
+                        break;
+                    case "Greater than $1000":
+                        ArtInventory = ArtInventory.Where(p => p.Price > 1000);
+                        break;
+                    default:
+                        ArtInventory = ArtInventory.Where(p => p.Price > 0);
+                        break;
+                }
+            };
+
             //Primary ViewModel of all art from primary query
             CustomerPieceViewModel AllArt = new CustomerPieceViewModel
             {
-                AllPieces = ArtInventory
+                AllPieces = ArtInventory.ToList()
             };
 
             return View(AllArt);
@@ -76,19 +119,34 @@ namespace Art_Gallery.Controllers
                                     ArtistName = art.Artist,
                                     Title = art.Title,
                                     Image = piece.Image,
+                                    Medium = art.Medium,
                                     Dimensions = art.Dimensions,
                                     QtyInInventory = art.NumberInInventory,
-                                    Price = (float)(double)piece.Price,
+                                    Price = piece.Price,
                                     HasSold = piece.Sold,
                                     Location = piece.Location
-                                }).ToList();
+                                });
 
             CustomerPieceViewModel SelectedPiece = new CustomerPieceViewModel
             {
-                AllPieces = SelectionInfo
+                AllPieces = SelectionInfo.ToList()
             };
 
             return View(SelectedPiece);
+        }
+
+        public ActionResult Shows()
+        {
+            DataStoreContext db = new DataStoreContext();
+
+            var ShowInfo = db.ArtShow.ToList();
+
+            ArtshowViewModel allShows = new ArtshowViewModel()
+            {
+                ShowList = ShowInfo
+            };
+
+            return View(allShows);
         }
     }
 }

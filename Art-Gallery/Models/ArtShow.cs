@@ -10,7 +10,7 @@ namespace Art_Gallery.Models
         public int ArtShowId { get; set; }
         public string ArtistsRepresented { get; set; }
         public string ShowLocation { get; set; }
-        public int Agents { get; set; }
-        public float Overhead { get; set; }
+        public string Agents { get; set; }
+        public double Overhead { get; set; }
     }
 }
