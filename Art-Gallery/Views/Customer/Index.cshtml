@@ -1,14 +1,14 @@
 ﻿@model Art_Gallery.ViewModels.CustomerPieceViewModel
 @{
-    ViewBag.Title = "Welcome, Customer";
+    ViewBag.Title = "Pieces Currently Available for Purchase";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
 <form asp-controller="Customer" asp-action="Index">
-    @Html.DropDownList("artistString", "Select Artist")
-    @Html.DropDownList("mediumString", "Select Medium")
-    @Html.DropDownList("priceString", "Select Price Range")
+    @Html.DropDownList("artistString", "All Artists")
+    @Html.DropDownList("mediumString", "All Mediums")
+    @Html.DropDownList("priceString", "Any Price Range")
     @*cost dropdown box goes here*@
     <input type="submit" value="Filter"/>
 </form>
