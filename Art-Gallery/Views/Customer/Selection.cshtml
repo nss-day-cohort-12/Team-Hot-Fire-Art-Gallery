@@ -7,11 +7,12 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2>@Html.DisplayName(item.Title)</h2>
-            <img src="@item.Image" />
+            <img style="height: 100%; width: 100%;" src="@item.Image" />
         </div>
         <div class="panel-body">
             <p>Artist: @item.ArtistName</p>
             <p>Price: $@item.Price</p>
+            <p>Medium: @item.Medium</p>
             <p>Dimensions: @item.Dimensions</p>
             <p>Number Available: @item.QtyInInventory</p>
             <p>Location: @item.Location</p>
