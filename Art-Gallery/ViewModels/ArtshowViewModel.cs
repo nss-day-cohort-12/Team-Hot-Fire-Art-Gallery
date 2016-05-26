@@ -9,9 +9,9 @@ namespace Art_Gallery.ViewModels
     public class ArtshowViewModel
     {
         public int ArtShowId { get; set; }
-        public string Artists { get; set; }
-        public string Location { get; set; }
-        public int Agents { get; set; }
+        public string ArtistsRepresented { get; set; }
+        public string ShowLocation { get; set; }
+        public string Agents { get; set; }
         public float Overhead { get; set; }
         public List<ArtShow> ShowList { get; set; }
     }

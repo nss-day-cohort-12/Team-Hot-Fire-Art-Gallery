@@ -54,10 +54,10 @@ namespace Art_Gallery.Controllers
             ViewData["mediumString"] = new SelectList(MediumsList);
 
             var PriceList = new List<string>();
-            PriceList.Add("<250");
-            PriceList.Add("251+");
-            PriceList.Add("500+");
-            PriceList.Add("1000+");
+            PriceList.Add("100");
+            PriceList.Add("250");
+            PriceList.Add("500");
+            PriceList.Add("1000");
             ViewData["priceString"] = new SelectList(PriceList);
 
 
@@ -72,11 +72,11 @@ namespace Art_Gallery.Controllers
                 ArtInventory = ArtInventory.Where(m => m.Medium == mediumString);
             }
 
-            //*** Use once price conversion and conditional is handled **//
-            //if (!string.IsNullOrEmpty(priceString))
-            //{
-            //    ArtInventory = ArtInventory.Where(p => p.Price == Convert.ToDouble(priceString));
-            //}
+            //***Use once price conversion and conditional is handled**//
+            if (!string.IsNullOrEmpty(priceString))
+            {
+                ArtInventory = ArtInventory.Where(p => p.Price == Convert.ToDouble(priceString));
+            }
 
             //Primary ViewModel of all art from primary query
             CustomerPieceViewModel AllArt = new CustomerPieceViewModel
@@ -123,23 +123,14 @@ namespace Art_Gallery.Controllers
         {
             DataStoreContext db = new DataStoreContext();
 
-            var ShowInfo = (from show in db.ArtShow
-                            orderby show.Artists
-                            select new ArtShow
-                            {
-                                ArtShowId = show.ArtShowId,
-                                Artists = show.Artists,
-                                Location = show.Location,
-                                Agents = show.Agents,
-                                Overhead = show.Overhead
-                            });
+            var ShowInfo = db.ArtShow.ToList();
 
-            ArtshowViewModel SelectedShow = new ArtshowViewModel()
+            ArtshowViewModel allShows = new ArtshowViewModel()
             {
-                ShowList = ShowInfo.ToList()
+                ShowList = ShowInfo
             };
 
-            return View(SelectedShow);
+            return View(allShows);
         }
     }
 }
