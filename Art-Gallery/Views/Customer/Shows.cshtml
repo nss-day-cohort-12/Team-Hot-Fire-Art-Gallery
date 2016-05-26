@@ -5,3 +5,7 @@
 
 <h2>Shows</h2>
 
+@foreach(var item in Model.ShowList)
+{
+    <p>@item.Location</p>
+}

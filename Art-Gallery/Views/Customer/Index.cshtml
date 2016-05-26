@@ -18,12 +18,12 @@
 {
 
     <div class="panel panel-default col-sm-4">
-        <div class="panel-heading">
+        <div class="panel-heading" style="height: 60px;">
             @*Links to individual selection page for each piece of art*@
-            @Html.ActionLink("ART", "Selection", new { ArtworkId = item.ArtworkId })
-            <img src="@item.Image" />
+            @Html.ActionLink(@item.Title, "Selection", new { ArtworkId = item.ArtworkId })
         </div>
         <div class="panel-body">
+            <img class="thumbnail" style="height: 350px; width: 350px;" src="@item.Image" />
             <p>This piece is available</p>
         </div>
     </div>

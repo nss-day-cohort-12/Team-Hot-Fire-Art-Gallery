@@ -139,7 +139,7 @@ namespace Art_Gallery.Controllers
                 ShowList = ShowInfo.ToList()
             };
 
-            return View();
+            return View(SelectedShow);
         }
     }
 }
