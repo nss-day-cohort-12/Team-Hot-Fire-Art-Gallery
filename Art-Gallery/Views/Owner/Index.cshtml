@@ -5,6 +5,8 @@
 
 <h2>Your Inventory</h2>
 
+@Html.ActionLink("Add a Piece", "CreatePiece")
+
 <table>
     <tr>
         <th>@Html.DisplayNameFor(model => model.Title)</th>
@@ -26,6 +28,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => piece.Sold)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditPiece", new { IndividualPieceId = piece.IndividualPieceId })
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeletePiece", new { IndividualPieceId = piece.IndividualPieceId })
             </td>
         </tr>
     }
