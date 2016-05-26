@@ -269,7 +269,13 @@
     <Content Include="Views\Owner\Index.cshtml" />
     <Content Include="Views\Owner\Sales.cshtml" />
     <Content Include="Views\Owner\Agents.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Customer\Shows.cshtml" />
+=======
+    <Content Include="Views\Owner\EditAgent.cshtml" />
+    <Content Include="Views\Owner\CreateAgent.cshtml" />
+    <Content Include="Views\Owner\EditPiece.cshtml" />
+>>>>>>> 38a4150caa38c425d6fbfdefae5d7d08b6f9c80d
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605240212462_InitialCreate.resx">

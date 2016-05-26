@@ -11,11 +11,11 @@ namespace Art_Gallery.Models
         public int ArtWorkId { get; set; }
         public string Image { get; set; }
         public string DateCreated { get; set; }
-        public float Cost { get; set; }
-        public float Price { get; set; }
+        public double Cost { get; set; }
+        public double Price { get; set; }
         public bool Sold { get; set; }
         public string Location { get; set; }
         public string EditionNumber { get; set; }
-        public int InvoiceId { get; set; }
+        public int? InvoiceId { get; set; }
     }
 }
