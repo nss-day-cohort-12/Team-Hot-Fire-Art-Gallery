@@ -14,5 +14,6 @@ namespace Art_Gallery.ViewModels
         public bool Sold { get; set; }
         public double TotalSales { get; set; }
         public double TotalProfit { get; set; }
+        public List<ArtWorkViewModel> WorksOfArt { get; set; }
     }
 }
