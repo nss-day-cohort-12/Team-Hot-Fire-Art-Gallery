@@ -46,6 +46,7 @@ namespace Art_Gallery.Controllers
             return View();
         }
 
+
         // CREATE - POST
         [HttpPost]
         public ActionResult CreatePiece(PieceViewModel pieces)
