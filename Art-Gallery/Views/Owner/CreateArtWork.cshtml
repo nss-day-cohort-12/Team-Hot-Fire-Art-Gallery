@@ -1,0 +1,55 @@
+﻿@model Art_Gallery.ViewModels.ArtWorkViewModel
+@*@{
+    ViewBag.Title = "CreateArtWork";
+}*@
+
+<h2>Add New ArtWork</h2>
+
+
+@*<form asp-controller="Owner" asp-action="Create">
+    @Html.DropDownList("artistString", "All Artists")
+    <input type="submit" value="Select" />
+</form>*@
+
+
+
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.Label("Artist")
+        @Html.EditorFor(model => model.Artist)
+    </p>
+    <p>
+        @Html.Label("Title")
+        @Html.EditorFor(model => model.Title)
+    </p>
+    <p>
+        @Html.Label("Year Original Created")
+        @Html.EditorFor(model => model.YearOriginalCreated)
+    </p>
+    <p>
+        @Html.Label("Medium")
+        @Html.EditorFor(model => model.Medium)
+    </p>
+    <p>
+        @Html.Label("Dimensions")
+        @Html.EditorFor(model => model.Dimensions)
+    </p>
+    <p>
+        @Html.Label("Number Made")
+        @Html.EditorFor(model => model.NumberMade)
+    </p>
+    <p>
+        @Html.Label("Number In Inventory")
+        @Html.EditorFor(model => model.NumberInInventory)
+    </p>
+    <p>
+        @Html.Label("Number Sold")
+        @Html.EditorFor(model => model.NumberSold)
+    </p>
+    <p>
+        <input type="submit" value="Add" />
+    </p>
+}
+
+@Html.ActionLink("Back to homepage", "Index")

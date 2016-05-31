@@ -374,5 +374,97 @@ namespace Art_Gallery.Controllers
             }
         }
 
+
+
+
+
+
+
+        // **********************
+        // CREATE NEW ARTWORK FOR ARTWORK TABLE
+        // **********************
+
+        public ActionResult GetArtWork()
+        {
+            DataStoreContext db = new DataStoreContext();
+            var artwork = (from aw in db.ArtWork
+                             select new ArtWorkViewModel // adding new ArtWork below following ArtWorkViewModel properties
+                             {
+                                 ArtWorkId = aw.ArtWorkId,
+                                 Artist = aw.Artist,
+                                 Title = aw.Title,
+                                 YearOriginalCreated = aw.YearOriginalCreated,
+                                 Medium = aw.Medium,
+                                 Dimensions = aw.Dimensions,
+                                 NumberMade = aw.NumberMade,
+                                 NumberInInventory = aw.NumberInInventory,
+                                 NumberSold = aw.NumberSold
+                             }).ToList();
+
+           //var artists = db.ArtWork.Select(x => x.Artist);
+           //var artistList = new List<string>();
+
+           // //Query only artists for artist dropdown select 
+           // var ArtistQry = from aw in db.ArtWork
+           //                 orderby aw.Artist
+           //                 select aw.Artist;
+
+           // var ArtistList = new List<string>();
+           // ArtistList.AddRange(ArtistQry.Distinct());
+           // ViewData["artistString"] = new SelectList(ArtistList);
+
+            InventoryViewModel inventoryArtWork = new InventoryViewModel
+            {
+                WorksOfArt = artwork // takes var artwork from above and adds to WorksOfArt list within InventoryViewModel
+            };
+
+            return View(inventoryArtWork);
+        }
+
+
+        // CREATE - GET
+        [HttpGet] 
+        public ActionResult CreateArtWork()
+        {
+            return View();
+        }
+
+
+        // this is how we submit the data from the form to the database
+        [HttpPost] //must be here for page to work, sends data on submit button click
+        public ActionResult CreateArtWork(ArtWorkViewModel artworkDetails)
+        {
+            using (DataStoreContext db = new DataStoreContext())
+            {
+                if (ModelState.IsValid)
+                {
+                    ArtWork artwork = new ArtWork
+                    {
+                        Artist = artworkDetails.Artist,
+                        Title = artworkDetails.Title,
+                        YearOriginalCreated = artworkDetails.YearOriginalCreated,
+                        Medium = artworkDetails.Medium,
+                        Dimensions = artworkDetails.Dimensions,
+                        NumberMade = artworkDetails.NumberMade,
+                        NumberInInventory = artworkDetails.NumberInInventory,
+                        NumberSold = artworkDetails.NumberSold,
+                    };
+                    db.ArtWork.Add(artwork); //saves info to the context
+                    db.SaveChanges(); //saves info to the databse
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(artworkDetails);
+        }
+
+
+
+
+
+
+
+
+
+
     }
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Art_Gallery.Models
+namespace Art_Gallery.ViewModels
 {
-    public class ArtWork
+    public class ArtWorkViewModel
     {
         public int ArtWorkId { get; set; }
         public string Artist { get; set; }
@@ -17,6 +17,6 @@ namespace Art_Gallery.Models
         public int NumberInInventory { get; set; }
         public int NumberSold { get; set; }
 
-        public List<IndividualPiece> Pieces { get; set; }
+
     }
 }
